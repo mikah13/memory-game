@@ -1,7 +1,6 @@
 import React from 'react';
 import Card from './Card';
 import Restart from './Restart';
-import Instruction from './Instruction'
 import logo0 from './0.png'
 import logo1 from './1.png'
 import logo2 from './2.png'
