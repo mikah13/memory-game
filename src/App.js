@@ -1,5 +1,6 @@
 import React from 'react';
 import Board from './Board';
+import Instruction from './Instruction';
 const BOARD_SIZE = 4;
 
 class App extends React.Component {
@@ -42,7 +43,7 @@ class App extends React.Component {
     }
     render() {
 
-        return (<div className="App"><Board board={this.generateBoard()}/></div>);
+        return (<div className="App row"><Board board={this.generateBoard()}/><Instruction/></div>);
     }
 }
 

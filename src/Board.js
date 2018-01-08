@@ -1,6 +1,30 @@
 import React from 'react';
 import Card from './Card';
 import Restart from './Restart';
+import Instruction from './Instruction'
+import logo0 from './0.png'
+import logo1 from './1.png'
+import logo2 from './2.png'
+import logo3 from './3.png'
+import logo4 from './4.png'
+import logo5 from './5.png'
+import logo6 from './6.png'
+import logo7 from './7.png'
+import logo8 from './8.png'
+import logo9 from './9.png'
+
+const imgArr = [
+    logo0,
+    logo1,
+    logo2,
+    logo3,
+    logo4,
+    logo5,
+    logo6,
+    logo7,
+    logo8,
+    logo9
+]
 const BOARD_SIZE = 4;
 class Board extends React.Component {
     constructor(props) {
@@ -65,7 +89,8 @@ class Board extends React.Component {
             let id = e.target.getAttribute('id')
             if (this.state.matched.indexOf(id) === -1) {
                 e.target.className = 'card show';
-                e.target.innerHTML = this.state.board[parseInt(id / BOARD_SIZE, 10)][id % BOARD_SIZE]
+
+                e.target.innerHTML = `<img src='${imgArr[this.state.board[parseInt(id / BOARD_SIZE, 10)][id % BOARD_SIZE]]}'/>`
                 if (this.state.check.length === 0) {
                     let check = this.state.check;
                     check.push(id)
@@ -88,7 +113,7 @@ class Board extends React.Component {
                             firstCard.innerHTML = '';
                             secondCard.innerHTML = '';
                             this.setState({check: [], clickable: true})
-                        }, 1000)
+                        }, 1100)
                     } else {
                         setTimeout(_ => {
                             firstCard.className = 'card';
@@ -96,7 +121,7 @@ class Board extends React.Component {
                             firstCard.innerHTML = '';
                             secondCard.innerHTML = '';
                             this.setState({check: [], clickable: true})
-                        }, 1000)
+                        }, 1100)
 
                     }
 
@@ -120,7 +145,11 @@ class Board extends React.Component {
                 this.newGame();
             }, 3000)
         }
-        return (<div className="board">{this.generateBoard()}<Restart restart={this.newGame}/></div>)
+        return (<div className="board ">
+            <h1>
+                Programming Language Game
+            </h1>
+            {this.generateBoard()}<Restart restart={this.newGame}/></div>)
     }
 }
 
