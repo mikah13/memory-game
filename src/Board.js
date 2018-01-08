@@ -30,6 +30,7 @@ class Board extends React.Component {
         super(props);
         this.state = {
             clickable: true,
+            move:0,
             matched: [],
             check: [],
             board: this.props.board
@@ -89,19 +90,20 @@ class Board extends React.Component {
             if (this.state.matched.indexOf(id) === -1) {
                 e.target.className = 'card show';
                 let number = this.state.board[parseInt(id / BOARD_SIZE, 10)][id % BOARD_SIZE];
-                console.log(number);
                 e.target.innerHTML = `<img src='${imgArr[number]}'/>`
                 if (this.state.check.length === 0) {
                     let check = this.state.check;
                     check.push(id)
                     this.setState({check: check})
                 } else if (this.state.check.length === 1) {
+                    let move = this.state.move;
+                    move++;
                     let check = this.state.check;
                     check.push(id)
                     this.setState({check: check})
                     let firstCard = document.getElementById(this.state.check[0]);
                     let secondCard = document.getElementById(this.state.check[1]);
-                    this.setState({clickable: false})
+                    this.setState({clickable: false,move:move})
                     if (firstCard.innerHTML === secondCard.innerHTML) {
                         let matched = this.state.matched;
                         matched.push(this.state.check[0]);
@@ -141,15 +143,17 @@ class Board extends React.Component {
     })
     render() {
         if (this.winGame()) {
+            document.getElementById('move').innerHTML = "YOU WON!";
             setTimeout(_ => {
+                document.getElementById('move').innerHTML = "Move:0";
                 this.newGame();
-            }, 3000)
+            }, 4000)
         }
         return (<div className="board ">
-            <h1>
+            <h1 id="header">
                 Programming Language Game
             </h1>
-            {this.generateBoard()}<Restart restart={this.newGame}/></div>)
+            {this.generateBoard()}<h3 id="move">Move:{this.state.move}</h3><Restart restart={this.newGame}/></div>)
     }
 }
 
