@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './Card';
 import Restart from './Restart';
+import Information from './Information';
 import logo0 from './0.png'
 import logo1 from './1.png'
 import logo2 from './2.png'
@@ -30,7 +31,8 @@ class Board extends React.Component {
         super(props);
         this.state = {
             clickable: true,
-            move:0,
+            lastMatch: null,
+            move: 0,
             matched: [],
             check: [],
             board: this.props.board
@@ -74,7 +76,14 @@ class Board extends React.Component {
         return arr;
     }
     newGame = _ => {
-        this.setState({clickable: true, matched: [], check: [], board: this.createBoard()})
+        this.setState({
+            clickable: true,
+            matched: [],
+            check: [],
+            board: this.createBoard(),
+            lastMatch: null,
+            move: 0
+        })
         for (let i = 0; i < BOARD_SIZE * BOARD_SIZE; i++) {
             let el = document.getElementById(i);
             el.innerHTML = '';
@@ -82,7 +91,12 @@ class Board extends React.Component {
         }
     }
     winGame = _ => {
-        return this.state.matched.length === BOARD_SIZE * BOARD_SIZE;
+        if (this.state.matched.length === BOARD_SIZE * BOARD_SIZE) {
+            setTimeout(_ => {
+                this.newGame();
+            }, 4000)
+        }
+
     }
     clickEvent = e => {
         if (this.state.clickable) {
@@ -103,7 +117,7 @@ class Board extends React.Component {
                     this.setState({check: check})
                     let firstCard = document.getElementById(this.state.check[0]);
                     let secondCard = document.getElementById(this.state.check[1]);
-                    this.setState({clickable: false,move:move})
+                    this.setState({clickable: false, move: move})
                     if (firstCard.innerHTML === secondCard.innerHTML) {
                         let matched = this.state.matched;
                         matched.push(this.state.check[0]);
@@ -114,7 +128,7 @@ class Board extends React.Component {
                             secondCard.className = 'card matched';
                             firstCard.innerHTML = '';
                             secondCard.innerHTML = '';
-                            this.setState({check: [], clickable: true})
+                            this.setState({check: [], clickable: true, lastMatch: number})
                         }, 1100)
                     } else {
                         setTimeout(_ => {
@@ -142,18 +156,16 @@ class Board extends React.Component {
         return (<div key={i} className="row board-row">{this.generateBoardRow(i)}</div>)
     })
     render() {
-        if (this.winGame()) {
-            document.getElementById('move').innerHTML = "YOU WON!";
-            setTimeout(_ => {
-                document.getElementById('move').innerHTML = "Move:0";
-                this.newGame();
-            }, 4000)
-        }
-        return (<div className="board ">
-            <h1 id="header">
-                Programming Language Game
-            </h1>
-            {this.generateBoard()}<h3 id="move">Move:{this.state.move}</h3><Restart restart={this.newGame}/></div>)
+        this.winGame();
+        return (<div className="row col-lg-9">
+            <Information number={this.state.lastMatch}/>
+            <div className="board ">
+                <h1 id="header">
+                    Programming Language Game
+                </h1>
+                {this.generateBoard()}<h3 id="move">Move:{this.state.move}</h3>
+                <h3 id="win"></h3><Restart restart={this.newGame}/></div>
+        </div>)
     }
 }
 
