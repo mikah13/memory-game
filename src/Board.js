@@ -88,7 +88,7 @@ class Board extends React.Component {
         if (this.state.clickable) {
             let id = e.target.getAttribute('id')
             if (this.state.matched.indexOf(id) === -1) {
-                e.target.className = 'card show';
+                e.target.className = 'card show animated flipInY';
                 let number = this.state.board[parseInt(id / BOARD_SIZE, 10)][id % BOARD_SIZE];
                 e.target.innerHTML = `<img src='${imgArr[number]}'/>`
                 if (this.state.check.length === 0) {
