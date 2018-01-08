@@ -88,8 +88,9 @@ class Board extends React.Component {
             let id = e.target.getAttribute('id')
             if (this.state.matched.indexOf(id) === -1) {
                 e.target.className = 'card show';
-
-                e.target.innerHTML = `<img src='${imgArr[this.state.board[parseInt(id / BOARD_SIZE, 10)][id % BOARD_SIZE]]}'/>`
+                let number = this.state.board[parseInt(id / BOARD_SIZE, 10)][id % BOARD_SIZE];
+                console.log(number);
+                e.target.innerHTML = `<img src='${imgArr[number]}'/>`
                 if (this.state.check.length === 0) {
                     let check = this.state.check;
                     check.push(id)
