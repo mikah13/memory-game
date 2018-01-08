@@ -1,21 +1,49 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Board from './Board';
+const BOARD_SIZE = 4;
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+class App extends React.Component {
+    numbersPool = _ => {
+        let arr = [];
+        for (let i = 0; i < BOARD_SIZE; i++) {
+            let rand = Math.floor(Math.random() * 10);
+            while (arr.indexOf(rand) !== -1) {
+                rand = Math.floor(Math.random() * 10);
+            }
+            arr.push(rand)
+        }
+        return arr;
+    }
+    generateBoard = _ => {
+        let pool = this.numbersPool();
+        let arr = Array(BOARD_SIZE).fill(' ').map(e => Array(BOARD_SIZE).fill(' '));
+        let obj = {};
+        pool.forEach(e => {
+            obj[`${e}`] = BOARD_SIZE;
+        })
+        for (let i = 0; i < BOARD_SIZE; i++) {
+            while (obj['' + pool[i]] !== 0) {
+                let col = Math.floor(Math.random() * BOARD_SIZE);
+                let row = Math.floor(Math.random() * BOARD_SIZE);
+                let insert = true;
+                while (insert) {
+                    if (arr[row][col] === ' ') {
+                        arr[row][col] = `${pool[i]}`;
+                        obj[`${pool[i]}`] = obj[`${pool[i]}`] - 1;
+                        insert = false;
+                    } else {
+                        col = Math.floor(Math.random() * BOARD_SIZE);
+                        row = Math.floor(Math.random() * BOARD_SIZE);
+                    }
+                }
+            }
+        }
+        return arr;
+    }
+    render() {
+
+        return (<div className="App"><Board board={this.generateBoard()}/></div>);
+    }
 }
 
 export default App;
