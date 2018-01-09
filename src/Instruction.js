@@ -1,7 +1,6 @@
 import React from 'react';
 
 class Instruction extends React.Component {
-
     render() {
         return (<div className='instruction col-lg-3'>
             <p>
