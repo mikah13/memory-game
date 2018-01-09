@@ -1,11 +1,9 @@
 import React from 'react';
 import Board from './Board';
 import Instruction from './Instruction';
-
 const BOARD_SIZE = 4;
 
 class App extends React.Component {
-
     numbersPool = _ => {
         let arr = [];
         for (let i = 0; i < BOARD_SIZE; i++) {
@@ -44,7 +42,6 @@ class App extends React.Component {
         return arr;
     }
     render() {
-
         return (<div className="App row"><Board board={this.generateBoard()}/><Instruction/></div>);
     }
 }

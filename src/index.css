@@ -1,10 +1,12 @@
 body {
     font-family: sans-serif;
+    color: white;
 }
 
 #header {
     padding-left: 0px;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .board {
@@ -33,7 +35,7 @@ body {
 }
 
 #highlight {
-    color: rgb(106, 80, 224);
+    color: rgb(252, 243, 23);
     font-weight: bold;
     font-size: 25px;
 }
