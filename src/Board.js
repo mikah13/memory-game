@@ -99,12 +99,14 @@ class Board extends React.Component {
 
     }
     clickEvent = e => {
+
         if (this.state.clickable) {
             let id = e.target.getAttribute('id')
-            if (this.state.matched.indexOf(id) === -1) {
+
+            if (this.state.matched.indexOf(id) === -1 && this.state.check.indexOf(id) === -1 && id) {
                 e.target.className = 'card show animated flipInY';
                 let number = this.state.board[parseInt(id / BOARD_SIZE, 10)][id % BOARD_SIZE];
-                e.target.innerHTML = `<img src='${imgArr[number]}'/>`
+                e.target.innerHTML = `<img  src='${imgArr[number]}'/>`
                 if (this.state.check.length === 0) {
                     let check = this.state.check;
                     check.push(id)
@@ -120,7 +122,7 @@ class Board extends React.Component {
                     this.setState({clickable: false, move: move})
                     if (firstCard.innerHTML === secondCard.innerHTML) {
                         let matched = this.state.matched;
-                        matched.push(this.state.check[0]);
+                        matched.push(this.state.check[0])
                         matched.push(this.state.check[1]);
                         this.setState({matched: matched})
                         setTimeout(_ => {
@@ -134,6 +136,7 @@ class Board extends React.Component {
                         setTimeout(_ => {
                             firstCard.className = 'card';
                             secondCard.className = 'card';
+
                             firstCard.innerHTML = '';
                             secondCard.innerHTML = '';
                             this.setState({check: [], clickable: true})
