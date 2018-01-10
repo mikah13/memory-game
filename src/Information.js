@@ -49,7 +49,6 @@ class Information extends React.Component {
         return (<div className="information col-lg-5">
             <img className="info-img" src={src} alt=''></img>
             <p>{infoArray[this.props.number]}</p>
-
         </div>)
     }
 }

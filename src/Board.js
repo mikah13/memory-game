@@ -96,13 +96,35 @@ class Board extends React.Component {
                 this.newGame();
             }, 4000)
         }
-
     }
-    clickEvent = e => {
 
+    compare = (firstCard, secondCard, number) => {
+        if (firstCard.innerHTML === secondCard.innerHTML) {
+            let matched = this.state.matched;
+            matched.push(this.state.check[0])
+            matched.push(this.state.check[1]);
+            this.setState({matched: matched})
+            setTimeout(_ => {
+                firstCard.className = 'card matched';
+                secondCard.className = 'card matched';
+                firstCard.innerHTML = '';
+                secondCard.innerHTML = '';
+                this.setState({check: [], clickable: true, lastMatch: number})
+            }, 1100)
+        } else {
+            setTimeout(_ => {
+                firstCard.className = 'card';
+                secondCard.className = 'card';
+                firstCard.innerHTML = '';
+                secondCard.innerHTML = '';
+                this.setState({check: [], clickable: true})
+            }, 1100)
+        }
+    }
+
+    clickEvent = e => {
         if (this.state.clickable) {
             let id = e.target.getAttribute('id')
-
             if (this.state.matched.indexOf(id) === -1 && this.state.check.indexOf(id) === -1 && id) {
                 e.target.className = 'card show animated flipInY';
                 let number = this.state.board[parseInt(id / BOARD_SIZE, 10)][id % BOARD_SIZE];
@@ -116,34 +138,10 @@ class Board extends React.Component {
                     move++;
                     let check = this.state.check;
                     check.push(id)
-                    this.setState({check: check})
+                    this.setState({check: check, move: move, clickable: false})
                     let firstCard = document.getElementById(this.state.check[0]);
                     let secondCard = document.getElementById(this.state.check[1]);
-                    this.setState({clickable: false, move: move})
-                    if (firstCard.innerHTML === secondCard.innerHTML) {
-                        let matched = this.state.matched;
-                        matched.push(this.state.check[0])
-                        matched.push(this.state.check[1]);
-                        this.setState({matched: matched})
-                        setTimeout(_ => {
-                            firstCard.className = 'card matched';
-                            secondCard.className = 'card matched';
-                            firstCard.innerHTML = '';
-                            secondCard.innerHTML = '';
-                            this.setState({check: [], clickable: true, lastMatch: number})
-                        }, 1100)
-                    } else {
-                        setTimeout(_ => {
-                            firstCard.className = 'card';
-                            secondCard.className = 'card';
-
-                            firstCard.innerHTML = '';
-                            secondCard.innerHTML = '';
-                            this.setState({check: [], clickable: true})
-                        }, 1100)
-
-                    }
-
+                    this.compare(firstCard, secondCard, number)
                 }
             }
         }
@@ -158,7 +156,8 @@ class Board extends React.Component {
     generateBoard = _ => this.state.board.map((e, i) => {
         return (<div key={i} className="row board-row">{this.generateBoardRow(i)}</div>)
     })
-    render() {
+
+    run = _ => {
         this.winGame();
         return (<div className="row col-lg-9">
             <Information number={this.state.lastMatch}/>
@@ -170,6 +169,10 @@ class Board extends React.Component {
 
             </div>
         </div>)
+    }
+
+    render() {
+        return this.run();
     }
 }
 
