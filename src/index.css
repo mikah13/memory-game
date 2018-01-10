@@ -74,3 +74,7 @@ img {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.fb_iframe_widget {
+    margin-left: 0px;
+}

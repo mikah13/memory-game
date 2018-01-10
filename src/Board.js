@@ -163,7 +163,9 @@ class Board extends React.Component {
                 <h1 id="header">
                     Programming Language Game
                 </h1>
-                {this.generateBoard()}<h3 id="move">Move:{this.state.move}</h3><Restart restart={this.newGame}/></div>
+                {this.generateBoard()}<h3 id="move">Move:{this.state.move}</h3><Restart restart={this.newGame}/>
+
+            </div>
         </div>)
     }
 }
