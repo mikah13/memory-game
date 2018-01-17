@@ -159,9 +159,9 @@ class Board extends React.Component {
 
     run = _ => {
         this.winGame();
-        return (<div className="row col-lg-9">
+        return (<div id="display-game" className="row col-lg-9">
             <Information number={this.state.lastMatch}/>
-            <div className="board ">
+            <div className="board col-lg-7">
                 <h1 id="header">
                     Programming Language Game
                 </h1>

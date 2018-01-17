@@ -1,6 +1,7 @@
 body {
     font-family: sans-serif;
     color: white;
+
 }
 
 #header {
@@ -10,13 +11,15 @@ body {
 }
 
 .board {
-    margin: 40px auto;
+    margin: auto;
     display: block;
     margin-right: 20px;
+    margin-top: 4%;
+    margin-right: 0px;
 }
 
 .board-row {
-    margin: auto;
+    margin-left: 10%;
 }
 
 .instruction {
@@ -45,15 +48,15 @@ body {
     margin: 2px 2px 2px 2px;
     text-align: center;
     padding-top: 15px;
-    height: 130px;
-    width: 130px;
+    height: 110px;
+    width: 110px;
     display: inline-block;
     background-color: rgb(92, 171, 237);
     cursor: pointer;
 }
 
 img {
-    width: 90px;
+    width: 80%;
     height: auto;
 }
 
@@ -78,4 +81,11 @@ img {
 
 .fb_iframe_widget {
     margin-left: 0px;
+}
+
+#display-game{
+    margin: auto;
+}
+.info-img{
+    width: 150px;
 }
